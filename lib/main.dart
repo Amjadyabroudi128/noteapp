@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+ Future <void> main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp(
+     options: FirebaseOptions(
+         apiKey: "AIzaSyAcjOF2Q7TiEJ4Cx_eI0IZYWcnycmxLq44",
+         appId: "pushnotification-edda3",
+         messagingSenderId:
+         "765754690122",
+         projectId: "pushnotification-edda3"
+     ),
+   );
   runApp(const MyApp());
 }
 
