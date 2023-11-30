@@ -1,1 +1,1 @@
-a notes app with firebase and google sign in 
+a notes app with Firebase and google sign-in app is in progress for now
