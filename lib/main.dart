@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pushnotification/auth/Registration.dart';
 
 import 'auth/Login.dart';
 import 'homepage.dart';
@@ -28,11 +29,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Login(),
+      routes: {
+        "signup" : (context) => SignUp(),
+        "login" : (context) => Login(),
+        "homepage" : (context) => HomePage(),
+      },
     );
   }
 }
