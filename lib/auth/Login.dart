@@ -1,5 +1,6 @@
 
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pushnotification/components/CostomButton.dart';
@@ -49,7 +50,23 @@ class _LoginState extends State<Login> {
                   ],
                 )
               ),
-              CustomButton(onPressed: (){}, title: "Login"),
+              MaterialButton(onPressed: ()
+              async {
+                try {
+                  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: email.text,
+                      password: password.text
+                  );
+                  Navigator.of(context).pushReplacementNamed("homepage");
+
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'user-not-found') {
+                    print('No user found for that email.');
+                  } else if (e.code == 'wrong-password') {
+                    print('Wrong password provided for that user.');
+                  }
+                }
+              }, child: Text("Login")),
               SizedBox(height: 10,),
               MaterialButton(
                   height: 40,
