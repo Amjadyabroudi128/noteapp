@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pushnotification/components/CostomButton.dart';
 import 'package:pushnotification/components/customlogoauth.dart';
 import 'package:pushnotification/components/textformfield.dart';
@@ -20,6 +21,12 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.dark
+      )
+    );
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(20),
@@ -50,23 +57,24 @@ class _LoginState extends State<Login> {
                   ],
                 )
               ),
-              MaterialButton(onPressed: ()
-              async {
-                try {
-                  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email.text,
-                      password: password.text
-                  );
-                  Navigator.of(context).pushReplacementNamed("homepage");
+              CustomButton(onPressed: ()
+                  async {
+                    try {
+                      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: email.text,
+                          password: password.text
+                      );
+                      Navigator.of(context).pushReplacementNamed("homepage");
 
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                    print('No user found for that email.');
-                  } else if (e.code == 'wrong-password') {
-                    print('Wrong password provided for that user.');
-                  }
-                }
-              }, child: Text("Login")),
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
+                    }
+                  },
+                  title: "login"),
               SizedBox(height: 10,),
               MaterialButton(
                   height: 40,
