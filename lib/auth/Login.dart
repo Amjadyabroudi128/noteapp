@@ -27,6 +27,8 @@ class _LoginState extends State<Login> {
         statusBarBrightness: Brightness.dark
       )
     );
+    // this is to remove the status bar
+
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(20),
