@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
           statusBarColor: Colors.transparent,
         )
     );
+    // this is to remove the status bar
     return Scaffold(
       appBar: AppBar(
         title: Text("hello"),
