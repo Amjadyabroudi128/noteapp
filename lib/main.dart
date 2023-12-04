@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
         "login" : (context) => Login(),
         "homepage" : (context) => HomePage(),
       },
+      // routes for the pages
     );
   }
 }
