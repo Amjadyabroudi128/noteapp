@@ -28,6 +28,8 @@ class _SignUpState extends State<SignUp> {
             statusBarColor: Colors.transparent,
         )
     );
+    // this is to remove the status bar
+
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(20),
