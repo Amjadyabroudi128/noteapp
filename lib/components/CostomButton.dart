@@ -16,5 +16,6 @@ class CustomButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         onPressed: onPressed,
         child: Text(title));
+    // custom button component to be used when necessary
   }
 }
