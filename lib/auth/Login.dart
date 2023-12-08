@@ -1,9 +1,10 @@
 
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pushnotification/components/CostomButton.dart';
 import 'package:pushnotification/components/customlogoauth.dart';
 import 'package:pushnotification/components/textformfield.dart';
@@ -18,6 +19,28 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  Future signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null){
+      return;
+    }
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+     await FirebaseAuth.instance.signInWithCredential(credential);
+    Navigator.of(context).pushNamedAndRemoveUntil("homepage", (route) => false);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,13 +89,20 @@ class _LoginState extends State<Login> {
                           email: email.text,
                           password: password.text
                       );
-                      Navigator.of(context).pushReplacementNamed("homepage");
-
+                      FirebaseAuth.instance.currentUser!.sendEmailVerification();
+                      if (credential.user!.emailVerified){
+                        Navigator.of(context).pushReplacementNamed("homepage");
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                          content: Text("please verify your email")
+                        ));
+                      }
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');
                       } else if (e.code == 'wrong-password') {
                         print('Wrong password provided for that user.');
+
                       }
                     }
                   },
@@ -83,7 +113,9 @@ class _LoginState extends State<Login> {
                   color: Colors.red,
                   textColor: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  onPressed: (){},
+                  onPressed: (){
+                    signInWithGoogle();
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
