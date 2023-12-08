@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pushnotification/auth/Registration.dart';
 
 import 'auth/Login.dart';
@@ -18,7 +19,8 @@ import 'homepage.dart';
          projectId: "pushnotification-edda3"
      ),
    );
-  runApp(const MyApp());
+   GoogleSignIn();
+   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -34,7 +36,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: (FirebaseAuth.instance.currentUser != null
+          && FirebaseAuth.instance.currentUser!.emailVerified)
+          ? HomePage()
+          : Login(),
+
       routes: {
         "signup" : (context) => SignUp(),
         "login" : (context) => Login(),
