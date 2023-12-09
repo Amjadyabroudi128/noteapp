@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("login with google"),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 15,),
                       Image.asset("images/google.png", width: 30,),
                     ],
                   )
