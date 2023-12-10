@@ -12,3 +12,6 @@ Sign Up
 log in with Google 
 
 ![2f4f2bd7-dc80-4c08-a2bf-37d7db1ba3a6](https://github.com/Amjadyabroudi128/pushNotification-/assets/61939508/eeeafb50-f029-4de2-b129-49be427d7658)
+
+email Verification 
+
