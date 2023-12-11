@@ -58,7 +58,9 @@ class _SignUpState extends State<SignUp> {
                       SuffixIcon: Icon(Icons.person),),
                     Text("Email", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
-                    CustomTextForm(hinttext: "enter email", myController: emailcontroller, SuffixIcon: Icon(Icons.email),),
+                    CustomTextForm(hinttext: "enter email",
+                      myController: emailcontroller,
+                      SuffixIcon: Icon(Icons.email, color: Colors.black,),),
                     SizedBox(height: 9,),
                     Text("Password", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
@@ -77,10 +79,13 @@ class _SignUpState extends State<SignUp> {
                         },
                       ),
                     ),
-                    Container(
-                        margin: EdgeInsets.only(top: 20, bottom: 20),
-                        alignment: Alignment.topRight,
-                        child: Text("forgot passowrd?"))
+                    InkWell(
+                      onTap: (){},
+                      child: Container(
+                          margin: EdgeInsets.only(top: 20, bottom: 20),
+                          alignment: Alignment.topRight,
+                          child: Text("forgot passowrd?")),
+                    )
                   ],
                 )
             ),
