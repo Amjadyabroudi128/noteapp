@@ -41,7 +41,13 @@ class _LoginState extends State<Login> {
     Navigator.of(context).pushNamedAndRemoveUntil("homepage", (route) => false);
   }
 
+  bool passwordVisible=false;
 
+  @override
+  void initState(){
+    super.initState();
+    passwordVisible=true;
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -70,15 +76,33 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 20,),
                     Text("Email", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
-                    CustomTextForm(hinttext: "enter email", myController: email),
+                    CustomTextForm(hinttext: "enter email", myController: email, SuffixIcon: Icon(Icons.email),),
                     SizedBox(height: 9,),
                     Text("Password", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
-                    CustomTextForm(hinttext: 'Password', myController: password,),
-                    Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
-                      alignment: Alignment.topRight,
-                        child: Text("forgot passowrd?"))
+                    CustomTextForm(
+                      hinttext: 'Password',
+                      myController: password, SuffixIcon: IconButton(
+                      color: Colors.black,
+                      icon: Icon(
+                          passwordVisible ? Icons.visibility : Icons.visibility_off),
+                      onPressed: (){
+                        setState(() {
+                          passwordVisible = !passwordVisible;
+                        });
+                      },
+                    ),
+                      isObscureText: passwordVisible,
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        await FirebaseAuth.instance.sendPasswordResetEmail(email: email.text);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(top: 20, bottom: 20),
+                        alignment: Alignment.topRight,
+                          child: Text("forgot passowrd?")),
+                    )
                   ],
                 )
               ),
