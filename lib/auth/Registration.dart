@@ -20,7 +20,13 @@ class _SignUpState extends State<SignUp> {
   final emailcontroller = TextEditingController();
   final passwordController = TextEditingController();
   final userController = TextEditingController();
+  bool passwordVisible=false;
 
+  @override
+  void initState(){
+    super.initState();
+    passwordVisible=true;
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -48,14 +54,29 @@ class _SignUpState extends State<SignUp> {
                     SizedBox(height: 20,),
                     Text("User",style: TextStyle( fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
-                    CustomTextForm(hinttext: "enter your username", myController: userController),
+                    CustomTextForm(hinttext: "enter your username", myController: userController,
+                      SuffixIcon: Icon(Icons.person),),
                     Text("Email", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
-                    CustomTextForm(hinttext: "enter email", myController: emailcontroller),
+                    CustomTextForm(hinttext: "enter email", myController: emailcontroller, SuffixIcon: Icon(Icons.email),),
                     SizedBox(height: 9,),
                     Text("Password", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
-                    CustomTextForm(hinttext: 'Password', myController: passwordController,),
+                    CustomTextForm(
+                      hinttext: 'Password',
+                      isObscureText: passwordVisible,
+                      myController: passwordController,
+                      SuffixIcon: IconButton(
+                        color: Colors.black,
+                        icon: Icon(
+                            passwordVisible ? Icons.visibility : Icons.visibility_off),
+                        onPressed: (){
+                          setState(() {
+                            passwordVisible = !passwordVisible;
+                          });
+                        },
+                      ),
+                    ),
                     Container(
                         margin: EdgeInsets.only(top: 20, bottom: 20),
                         alignment: Alignment.topRight,
