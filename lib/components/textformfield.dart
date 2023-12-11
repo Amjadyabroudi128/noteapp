@@ -27,11 +27,18 @@ class CustomTextForm extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(color: Colors.grey),
+
           ),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(color: Colors.grey)
+              borderSide: BorderSide(color: Colors.white),
+          ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(
+            color: Colors.grey
           )
+        )
       ),
     );
     // custom text field
