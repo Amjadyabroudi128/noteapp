@@ -76,7 +76,7 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 20,),
                     Text("Email", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
-                    CustomTextForm(hinttext: "enter email", myController: email, SuffixIcon: Icon(Icons.email),),
+                    CustomTextForm(hinttext: "enter email", myController: email, SuffixIcon: Icon(Icons.email, color: Colors.black,),),
                     SizedBox(height: 9,),
                     Text("Password", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
