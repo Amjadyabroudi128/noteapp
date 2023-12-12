@@ -17,3 +17,6 @@ email Verification
 
 ![09c7260f-4bca-4619-8e4a-72a1a42b214a](https://github.com/Amjadyabroudi128/pushNotification-/assets/61939508/c9c3a046-30cc-467f-8d8f-43fe0eb6d77f)
 
+password reset 
+
+![Screenshot 2023-12-12 015536](https://github.com/Amjadyabroudi128/pushNotification-/assets/61939508/fd7520b8-93e7-46e1-a079-fe1e8da430cd)
