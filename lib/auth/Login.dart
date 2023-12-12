@@ -17,8 +17,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final GoogleSignIn googleSignIn = GoogleSignIn();
   Future signInWithGoogle() async {
     // Trigger the authentication flow
@@ -76,13 +76,13 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 20,),
                     Text("Email", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
-                    CustomTextForm(hinttext: "enter email", myController: email, SuffixIcon: Icon(Icons.email, color: Colors.black,),),
+                    CustomTextForm(hinttext: "enter email", myController: emailController, SuffixIcon: Icon(Icons.email, color: Colors.black,),),
                     SizedBox(height: 9,),
                     Text("Password", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
                     CustomTextForm(
                       hinttext: 'Password',
-                      myController: password, SuffixIcon: IconButton(
+                      myController: passwordController, SuffixIcon: IconButton(
                       color: Colors.black,
                       icon: Icon(
                           passwordVisible ? Icons.visibility : Icons.visibility_off),
@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                     ),
                     InkWell(
                       onTap: () async {
-                        await FirebaseAuth.instance.sendPasswordResetEmail(email: email.text);
+                        await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text);
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 20, bottom: 20),
@@ -110,8 +110,8 @@ class _LoginState extends State<Login> {
                   async {
                     try {
                       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email: email.text,
-                          password: password.text
+                          email: emailController.text,
+                          password: passwordController.text
                       );
                       FirebaseAuth.instance.currentUser!.sendEmailVerification();
                       if (credential.user!.emailVerified){
