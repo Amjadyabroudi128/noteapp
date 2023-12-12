@@ -80,7 +80,9 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     InkWell(
-                      onTap: (){},
+                      onTap: () async {
+                        await FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontroller.text);
+                      },
                       child: Container(
                           margin: EdgeInsets.only(top: 20, bottom: 20),
                           alignment: Alignment.topRight,
