@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pushnotification/Categories/add.dart';
 import 'package:pushnotification/auth/Registration.dart';
 
 import 'auth/Login.dart';
@@ -45,6 +46,7 @@ class _MyAppState extends State<MyApp> {
         "signup" : (context) => SignUp(),
         "login" : (context) => Login(),
         "homepage" : (context) => HomePage(),
+        "addcategory": (context) => AddCategory(),
       },
       // routes for the pages
     );
