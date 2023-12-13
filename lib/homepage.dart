@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List <QueryDocumentSnapshot> data =[];
+
+  getData() async {
+   QuerySnapshot querySnapshot  = await FirebaseFirestore.instance.collection("categories").get();
+   data.addAll(querySnapshot.docs);
+   setState(() {
+
+   });
+  }
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -21,6 +36,12 @@ class _HomePageState extends State<HomePage> {
     );
     // this is to remove the status bar
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.of(context).pushNamed("addcategory");
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text("hello"),
         actions: [
@@ -37,12 +58,31 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          Center(
-            child: Text("Welcome${FirebaseAuth.instance.currentUser!.email}"),
-          )
-        ],
+      body: GridView.builder(
+        itemCount: data.length,
+        padding: EdgeInsets.all(10),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, mainAxisExtent: 150,
+        ),
+        itemBuilder: (context, i) {
+         return Card(
+           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+           child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+               children: [
+                 Image.asset("images/folder.png",
+                   height: 100,
+                 ),
+
+                 Text("${data[i]["name"]}"),
+               ],
+              ),
+            ),
+          );
+        },
+
+
       ),
     );
   }
