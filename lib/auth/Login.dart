@@ -19,6 +19,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+ bool isLoading = false;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   Future signInWithGoogle() async {
     // Trigger the authentication flow
@@ -39,6 +41,9 @@ class _LoginState extends State<Login> {
     // Once signed in, return the UserCredential
      await FirebaseAuth.instance.signInWithCredential(credential);
     Navigator.of(context).pushNamedAndRemoveUntil("homepage", (route) => false);
+    isLoading = true;
+    await Future.delayed(Duration(seconds: 1));
+
   }
 
   bool passwordVisible=false;
@@ -59,7 +64,9 @@ class _LoginState extends State<Login> {
     // this is to remove the status bar
 
     return Scaffold(
-      body: Container(
+      body:  isLoading ? Center(
+        child: CircularProgressIndicator(),
+      ) :Container(
         padding: EdgeInsets.all(20),
           child: ListView(
             children: [
@@ -109,14 +116,20 @@ class _LoginState extends State<Login> {
               CustomButton(onPressed: ()
                   async {
                     try {
+                      isLoading = true;
+                      setState(() {
+
+                      });
                       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: emailController.text,
                           password: passwordController.text
                       );
-                      FirebaseAuth.instance.currentUser!.sendEmailVerification();
+                      await Future.delayed(Duration(seconds: 1));
+                      isLoading = false;
                       if (credential.user!.emailVerified){
                         Navigator.of(context).pushReplacementNamed("homepage");
                       } else {
+                        FirebaseAuth.instance.currentUser!.sendEmailVerification();
                         ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                           content: Text("please verify your email")
                         ));
