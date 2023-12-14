@@ -1,4 +1,3 @@
-here is how it looks so far
 
 login, Sign Up 
 
