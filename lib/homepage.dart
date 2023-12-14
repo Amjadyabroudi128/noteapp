@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,10 +15,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List <QueryDocumentSnapshot> data =[];
-
+  bool isLoading = true;
   getData() async {
    QuerySnapshot querySnapshot  = await FirebaseFirestore.instance.collection("categories").get();
    data.addAll(querySnapshot.docs);
+   isLoading = false;
    setState(() {
 
    });
@@ -58,28 +60,47 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: GridView.builder(
+      body:isLoading ? Center(
+        child: CircularProgressIndicator(),
+      ) :
+      GridView.builder(
         itemCount: data.length,
         padding: EdgeInsets.all(10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, mainAxisExtent: 150,
         ),
         itemBuilder: (context, i) {
-         return Card(
-           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-           child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-               children: [
-                 Image.asset("images/folder.png",
-                   height: 100,
-                 ),
-
-                 Text("${data[i]["name"]}"),
-               ],
+         return InkWell(
+           onLongPress: ()async{
+             AwesomeDialog(
+               context: context,
+               dialogType: DialogType.warning,
+               animType: AnimType.rightSlide,
+               title: "delete?",
+               desc: "are you sure ?",
+               btnCancelOnPress: (){},
+               btnOkOnPress: () async {
+                 await FirebaseFirestore.instance.collection("categories").doc(data[i].id).delete();
+                 Navigator.of(context).pushReplacementNamed("homepage");
+               }
+             ).show();
+           },
+           child: Card(
+             margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+             child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                 children: [
+                   Image.asset("images/folder.png",
+                     height: 90,
+                   ),
+                   SizedBox(height: 5,),
+                   Text("${data[i]["name"]}"),
+                 ],
+                ),
               ),
             ),
-          );
+         );
         },
 
 
