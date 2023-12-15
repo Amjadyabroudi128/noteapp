@@ -135,12 +135,20 @@ class _LoginState extends State<Login> {
                         ));
                       }
                     } on FirebaseAuthException catch (e) {
+                      isLoading = false;
+
+                      setState(() {
+                        clearText();
+                      });
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');
                       } else if (e.code == 'wrong-password') {
                         print('Wrong password provided for that user.');
 
                       }
+                      ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                          content: Text("either password or email wrong")
+                      ));
                     }
                   },
                   title: "login"),
@@ -179,5 +187,9 @@ class _LoginState extends State<Login> {
           ),
         ),
     );
+  }
+  void clearText() {
+    emailController.clear();
+    passwordController.clear();
   }
 }
