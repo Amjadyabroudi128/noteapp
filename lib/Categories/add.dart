@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pushnotification/components/CostomButton.dart';
@@ -21,9 +22,9 @@ class _AddCategoryState extends State<AddCategory> {
     if (formState.currentState!.validate()){
       try {
         DocumentReference response = await categories.add(
-          {"name": name.text}
+          {"name": name.text, "email" : FirebaseAuth.instance.currentUser!.email}
         );
-        Navigator.of(context).pushReplacementNamed("homepage");
+        Navigator.of(context).pushNamedAndRemoveUntil("homepage", (route) => false);
       } catch(e) {
         print("error ${e}");
       }
