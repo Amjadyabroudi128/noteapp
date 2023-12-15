@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pushnotification/Categories/edit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,7 +18,9 @@ class _HomePageState extends State<HomePage> {
   List <QueryDocumentSnapshot> data =[];
   bool isLoading = true;
   getData() async {
-   QuerySnapshot querySnapshot  = await FirebaseFirestore.instance.collection("categories").get();
+   QuerySnapshot querySnapshot
+   = await FirebaseFirestore.instance.collection("categories")
+       .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email).get();
    data.addAll(querySnapshot.docs);
    isLoading = false;
    setState(() {
@@ -71,17 +74,25 @@ class _HomePageState extends State<HomePage> {
         ),
         itemBuilder: (context, i) {
          return InkWell(
+           onTap: (){
+
+           },
            onLongPress: ()async{
              AwesomeDialog(
                context: context,
                dialogType: DialogType.warning,
                animType: AnimType.rightSlide,
-               title: "delete?",
-               desc: "are you sure ?",
-               btnCancelOnPress: (){},
-               btnOkOnPress: () async {
+               title: "edit?",
+               desc: "edit or delete",
+               btnCancelText: "delete",
+               btnOkText: "edit",
+               btnCancelOnPress: ()async {
                  await FirebaseFirestore.instance.collection("categories").doc(data[i].id).delete();
                  Navigator.of(context).pushReplacementNamed("homepage");
+               },
+               btnOkOnPress: () async {
+                 Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                     editCategory(DocId: data[i].id, oldname: data[i]["name"])));
                }
              ).show();
            },
