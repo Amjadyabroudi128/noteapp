@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pushnotification/Categories/edit.dart';
+import 'package:pushnotification/notes/view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, i) {
          return InkWell(
            onTap: (){
-
+             Navigator.of(context).push(MaterialPageRoute(builder: (context) => noteView(categoryID: data[i].id)));
            },
            onLongPress: ()async{
              AwesomeDialog(
