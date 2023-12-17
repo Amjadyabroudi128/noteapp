@@ -78,7 +78,7 @@ class _noteViewState extends State<noteView> {
             crossAxisCount: 2, mainAxisExtent: 150,
           ),
           itemBuilder: (context, i) {
-c            return Card(
+           return Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
