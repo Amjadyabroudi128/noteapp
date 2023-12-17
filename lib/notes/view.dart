@@ -78,45 +78,87 @@ class _noteViewState extends State<noteView> {
             crossAxisCount: 2, mainAxisExtent: 150,
           ),
           itemBuilder: (context, i) {
-            return InkWell(
-              onLongPress: (){
-                AwesomeDialog(
-                  context: context,
-                  dialogType: DialogType.error,
-                  animType: AnimType.rightSlide,
-                  title: "Delete",
-                  desc: "you are about to delete this note",
-                  btnCancelOnPress: (){
-                  },
-                  btnOkOnPress: () async {
-                    await FirebaseFirestore.instance.collection("categories")
-                        .doc(widget.categoryID).collection("note").doc(data[i].id).delete();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryID))
-                    );
-                }
-                ).show();
-              },
-              onTap: (){
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) =>
-                      editNote(categoryDocId: widget.categoryID, noteDocId: data[i].id, value: data[i]["note"],)
-                  )
-                );
-              },
-              child: Card(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 5,),
-                      Text("${data[i]["note"]}"),
-                    ],
+c            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              margin: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("${data[i]["note"]}"),
+                  SizedBox(
                   ),
-                ),
+                  Row(
+                    children: [
+                      IconButton(
+                        color: Colors.red,
+                        icon: Icon(Icons.delete),
+                        onPressed: () async {
+                          await FirebaseFirestore.instance.collection("categories")
+                              .doc(widget.categoryID).collection("note").doc(data[i].id).delete();
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryID))
+                                  );
+
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text('You have successfully deleted a note'),
+                          ));
+                        },
+                      ),
+                      Spacer(),
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: (){
+                          Navigator.of(context).push
+                            (MaterialPageRoute(builder: (context) =>
+                              editNote(categoryDocId: widget.categoryID, noteDocId: data[i].id, value: data[i]["note"],)));
+                        },
+                      ),
+                    ],
+                  )
+
+                ],
               ),
             );
+            // return InkWell(
+            //   onLongPress: (){
+            //     AwesomeDialog(
+            //       context: context,
+            //       dialogType: DialogType.error,
+            //       animType: AnimType.rightSlide,
+            //       title: "Delete",
+            //       desc: "you are about to delete this note",
+            //       btnCancelOnPress: (){
+            //       },
+            //       btnOkOnPress: () async {
+
+            //         Navigator.of(context).push(
+            //           MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryID))
+            //         );
+            //     }
+            //     ).show();
+            //   },
+            //   onTap: (){
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(builder: (context) =>
+            //           editNote(categoryDocId: widget.categoryID, noteDocId: data[i].id, value: data[i]["note"],)
+            //       )
+            //     );
+            //   },
+            //   child: Card(
+            //     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            //     child: Container(
+            //       padding: EdgeInsets.all(10),
+            //       child: Column(
+            //         children: [
+            //           SizedBox(height: 5,),
+            //           Text("${data[i]["note"]}"),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // );
           },
 
 
