@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List <QueryDocumentSnapshot> data =[];
   bool isLoading = true;
+  bool darkTheme = false;
   getData() async {
    QuerySnapshot querySnapshot
    = await FirebaseFirestore.instance.collection("categories")
@@ -62,6 +63,14 @@ class _HomePageState extends State<HomePage> {
               Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
             },
           ),
+          CupertinoSwitch(
+            value: darkTheme,
+            onChanged: (bool value){
+              setState(() {
+                darkTheme = value;
+              });
+            },
+          )
         ],
       ),
       body:isLoading ? Center(
