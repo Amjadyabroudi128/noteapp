@@ -31,7 +31,7 @@ class _editNoteState extends State<editNote> {
            "note" : note.text
          });
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryDocId)
+          MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryDocId, CategoryName: '',)
           ),
         );
       } catch(e) {
@@ -54,7 +54,15 @@ class _editNoteState extends State<editNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add note"),
+        title: Text("edit note"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.check),
+            onPressed: (){
+              editNote();
+            },
+          )
+        ],
       ),
       body: Form(
         key: formState,
@@ -63,9 +71,9 @@ class _editNoteState extends State<editNote> {
             Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: CustomTextAdd(hinttext: "note", myController: note)),
-            CustomButton(onPressed: (){
-              editNote();
-            }, title: "save")
+            // CustomButton(onPressed: (){
+            //   editNote();
+            // }, title: "save")
           ],
         ),
       ),
