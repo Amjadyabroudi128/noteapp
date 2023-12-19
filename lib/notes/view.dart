@@ -1,3 +1,4 @@
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,8 +12,8 @@ import 'package:pushnotification/notes/edit.dart';
 
 class noteView extends StatefulWidget {
   final String categoryID;
-  final String? CategoryName;
-  const noteView({Key? key, required this.categoryID, this.CategoryName}) : super(key: key);
+  final String CategoryName;
+  const noteView({Key? key, required this.categoryID, required this.CategoryName}) : super(key: key);
 
   @override
   State<noteView> createState() => _noteViewState();
@@ -51,7 +52,7 @@ class _noteViewState extends State<noteView> {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text("note"),
+        title: Text("${widget.CategoryName}"),
         actions: [
           IconButton(
             icon: Icon(
@@ -67,16 +68,12 @@ class _noteViewState extends State<noteView> {
         ],
       ),
       body:WillPopScope(
-
         child: isLoading ? Center(
           child: CircularProgressIndicator(),
         ) :
-        GridView.builder(
+        ListView.builder(
           itemCount: data.length,
           padding: EdgeInsets.all(10),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, mainAxisExtent: 150,
-          ),
           itemBuilder: (context, i) {
            return Card(
               shape: RoundedRectangleBorder(
@@ -86,79 +83,45 @@ class _noteViewState extends State<noteView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("${data[i]["note"]}"),
-                  SizedBox(
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        color: Colors.red,
-                        icon: Icon(Icons.delete),
-                        onPressed: () async {
-                          await FirebaseFirestore.instance.collection("categories")
-                              .doc(widget.categoryID).collection("note").doc(data[i].id).delete();
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryID))
-                                  );
 
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text('You have successfully deleted a note'),
-                          ));
-                        },
-                      ),
-                      Spacer(),
-                      IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: (){
-                          Navigator.of(context).push
-                            (MaterialPageRoute(builder: (context) =>
-                              editNote(categoryDocId: widget.categoryID, noteDocId: data[i].id, value: data[i]["note"],)));
-                        },
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text("${data[i]["note"]}"),
+                        Spacer(),
+                        IconButton(
+                          color: Colors.red,
+                          icon: Icon(Icons.delete),
+                          onPressed: () async {
+                            await FirebaseFirestore.instance.collection("categories")
+                                .doc(widget.categoryID).collection("note").doc(data[i].id).delete();
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryID,
+                                        CategoryName: "${data[i]["name"]}",))
+                                    );
+
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text('You have successfully deleted a note'),
+                            ));
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: (){
+                            Navigator.of(context).push
+                              (MaterialPageRoute(builder: (context) =>
+                                editNote(categoryDocId: widget.categoryID, noteDocId: data[i].id, value: data[i]["note"],)));
+                          },
+                        ),
+                      ],
+                    ),
                   )
 
                 ],
               ),
             );
-            // return InkWell(
-            //   onLongPress: (){
-            //     AwesomeDialog(
-            //       context: context,
-            //       dialogType: DialogType.error,
-            //       animType: AnimType.rightSlide,
-            //       title: "Delete",
-            //       desc: "you are about to delete this note",
-            //       btnCancelOnPress: (){
-            //       },
-            //       btnOkOnPress: () async {
 
-            //         Navigator.of(context).push(
-            //           MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryID))
-            //         );
-            //     }
-            //     ).show();
-            //   },
-            //   onTap: (){
-            //     Navigator.of(context).push(
-            //       MaterialPageRoute(builder: (context) =>
-            //           editNote(categoryDocId: widget.categoryID, noteDocId: data[i].id, value: data[i]["note"],)
-            //       )
-            //     );
-            //   },
-            //   child: Card(
-            //     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            //     child: Container(
-            //       padding: EdgeInsets.all(10),
-            //       child: Column(
-            //         children: [
-            //           SizedBox(height: 5,),
-            //           Text("${data[i]["note"]}"),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // );
           },
 
 
