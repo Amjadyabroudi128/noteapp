@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text("hello"),
+        title: Text("My notes "),
         actions: [
           IconButton(
             icon: Icon(
@@ -76,15 +76,16 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, i) {
          return InkWell(
            onTap: (){
-             Navigator.of(context).push(MaterialPageRoute(builder: (context) => noteView(categoryID: data[i].id)));
+             Navigator.of(context).push(MaterialPageRoute(builder: (context) => noteView(categoryID: data[i].id,
+               CategoryName: "${data[i]["name"]}",)));
            },
            onLongPress: ()async{
              AwesomeDialog(
                context: context,
                dialogType: DialogType.warning,
                animType: AnimType.rightSlide,
-               title: "edit?",
-               desc: "edit or delete",
+               title: "edit  ${data[i]["name"]}",
+               desc: "you can edit or delete ",
                btnCancelText: "delete",
                btnOkText: "edit",
                btnCancelOnPress: ()async {
