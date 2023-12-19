@@ -27,7 +27,7 @@ class _addNoteState extends State<addNote> {
             {"note": note.text,}
         );
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => noteView(categoryID: widget.docId)
+          MaterialPageRoute(builder: (context) => noteView(categoryID: widget.docId, CategoryName: '',)
           ),
         );
       } catch(e) {
