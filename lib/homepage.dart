@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
       ),
       appBar: AppBar(
         title: Text("My notes "),
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: Icon(
@@ -98,21 +99,23 @@ class _HomePageState extends State<HomePage> {
                }
              ).show();
            },
-           child: Card(
-             margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-             child: Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                 children: [
-                   Image.asset("images/folder.png",
-                     height: 90,
-                   ),
-                   SizedBox(height: 5,),
-                   Text("${data[i]["name"]}"),
-                 ],
+           child: FittedBox(
+             child: Card(
+               margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+               child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                   children: [
+                     Image.asset("images/folder.png",
+                       height: 90,
+                     ),
+                     SizedBox(height: 5,),
+                     Text("${data[i]["name"]}"),
+                   ],
+                  ),
                 ),
               ),
-            ),
+           ),
          );
         },
 
