@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:pushnotification/components/CostomButton.dart';
 import 'package:pushnotification/components/CustomTextFieldAdd.dart';
 import 'package:pushnotification/notes/view.dart';
-
 class editNote extends StatefulWidget {
   final String noteDocId;
   final String categoryDocId;
@@ -71,9 +70,6 @@ class _editNoteState extends State<editNote> {
             Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                 child: CustomTextAdd(hinttext: "note", myController: note)),
-            // CustomButton(onPressed: (){
-            //   editNote();
-            // }, title: "save")
           ],
         ),
       ),
