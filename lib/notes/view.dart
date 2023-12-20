@@ -88,7 +88,7 @@ class _noteViewState extends State<noteView> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        Text("${data[i]["note"]}"),
+                        FittedBox(child: Text("${data[i]["note"]}")),
                         Spacer(),
                         IconButton(
                           color: Colors.red,
@@ -98,7 +98,7 @@ class _noteViewState extends State<noteView> {
                                 .doc(widget.categoryID).collection("note").doc(data[i].id).delete();
                                     Navigator.of(context).push(
                                       MaterialPageRoute(builder: (context) => noteView(categoryID: widget.categoryID,
-                                        CategoryName: "${data[i]["name"]}",))
+                                        CategoryName: "",))
                                     );
 
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
