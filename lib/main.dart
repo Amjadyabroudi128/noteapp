@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pushnotification/Categories/add.dart';
 import 'package:pushnotification/auth/Registration.dart';
 
+import 'IntroScreen.dart';
 import 'auth/Login.dart';
 import 'homepage.dart';
 
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: "IntroScreen",
       debugShowCheckedModeBanner: false,
       home: (FirebaseAuth.instance.currentUser != null
           && FirebaseAuth.instance.currentUser!.emailVerified)
@@ -47,6 +49,7 @@ class _MyAppState extends State<MyApp> {
         "login" : (context) => Login(),
         "homepage" : (context) => HomePage(),
         "addcategory": (context) => AddCategory(),
+        "IntroScreen" : (context) => IntroScreen(),
       },
       // routes for the pages
     );
