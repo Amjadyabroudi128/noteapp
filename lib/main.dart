@@ -8,6 +8,7 @@ import 'package:pushnotification/auth/Registration.dart';
 
 import 'IntroScreen.dart';
 import 'auth/Login.dart';
+import 'auth/passwordReset.dart';
 import 'homepage.dart';
 
  Future <void> main() async {
@@ -50,6 +51,7 @@ class _MyAppState extends State<MyApp> {
         "homepage" : (context) => HomePage(),
         "addcategory": (context) => AddCategory(),
         "IntroScreen" : (context) => IntroScreen(),
+        "reset" : (context) => PasswordReset(),
       },
       // routes for the pages
     );
