@@ -25,7 +25,7 @@ class IntroScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: 60,),
-                  Text("Login with and start taking notes", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                  Text("Login  and start taking notes", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                   SizedBox(height: 40,),
                   Text("You can sign in with both your email and gmail ")
                 ],
@@ -43,9 +43,26 @@ class IntroScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     SizedBox(height: 60,),
-                    Text("Login with and start taking notes", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                    Text("Seperate your categories", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                     SizedBox(height: 40,),
-                    Text("You can sign in with both your email and gmail ")
+                    Text("for a better look, categorize your notes ")
+                  ],
+                )
+            ),
+            PageViewModel(
+                title: "",
+                bodyWidget: Column(
+                  children: [
+                    SizedBox(height: 60,),
+                    Image(
+                      image: AssetImage("images/collection.png"),
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(height: 60,),
+                    Text("delete entire categories!!", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                    SizedBox(height: 40,),
+                    Text("you can delete/edit your folders ")
                   ],
                 )
             ),
@@ -60,9 +77,9 @@ class IntroScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     SizedBox(height: 60,),
-                    Text("Login with and start taking notes", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                    Text("make your notes as a list", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                     SizedBox(height: 40,),
-                    Text("You can sign in with both your email and gmail ")
+                    Text("add notes in your sub-categories and edit or delete them  ")
                   ],
                 )
             ),
