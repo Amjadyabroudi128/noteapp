@@ -79,18 +79,19 @@ class _SignUpState extends State<SignUp> {
                         },
                       ),
                     ),
-                    InkWell(
-                      onTap: () async {
-                        await FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontroller.text);
-                      },
-                      child: Container(
-                          margin: EdgeInsets.only(top: 20, bottom: 20),
-                          alignment: Alignment.topRight,
-                          child: Text("forgot passowrd?")),
-                    )
+                    // InkWell(
+                    //   onTap: () async {
+                    //     await FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontroller.text);
+                    //   },
+                    //   child: Container(
+                    //       margin: EdgeInsets.only(top: 20, bottom: 20),
+                    //       alignment: Alignment.topRight,
+                    //       child: Text("forgot passowrd?")),
+                    // )
                   ],
                 )
             ),
+            SizedBox(height: 10,),
             CustomButton(onPressed: ()async {
           try {
             final auth = await FirebaseAuth.instance.createUserWithEmailAndPassword(
