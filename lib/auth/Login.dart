@@ -102,8 +102,12 @@ class _LoginState extends State<Login> {
                       isObscureText: passwordVisible,
                     ),
                     InkWell(
-                      onTap: () async {
-                        await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text);
+                      // onTap: () async {
+                      //   await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text);
+                      // },
+                      onTap: (){
+                        Navigator.of(context).pushNamed("reset");
+
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 20, bottom: 20),
@@ -135,17 +139,17 @@ class _LoginState extends State<Login> {
                         ));
                       }
                     } on FirebaseAuthException catch (e) {
-                      isLoading = false;
-
-                      setState(() {
-                        clearText();
-                      });
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');
                       } else if (e.code == 'wrong-password') {
                         print('Wrong password provided for that user.');
 
                       }
+                      isLoading = false;
+
+                      setState(() {
+                        clearText();
+                      });
                       ScaffoldMessenger.of(context).showSnackBar( SnackBar(
                           content: Text("either password or email wrong")
                       ));
