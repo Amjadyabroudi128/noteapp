@@ -79,15 +79,6 @@ class _SignUpState extends State<SignUp> {
                         },
                       ),
                     ),
-                    // InkWell(
-                    //   onTap: () async {
-                    //     await FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontroller.text);
-                    //   },
-                    //   child: Container(
-                    //       margin: EdgeInsets.only(top: 20, bottom: 20),
-                    //       alignment: Alignment.topRight,
-                    //       child: Text("forgot passowrd?")),
-                    // )
                   ],
                 )
             ),
@@ -99,12 +90,19 @@ class _SignUpState extends State<SignUp> {
               password: passwordController.text,
             );
             FirebaseAuth.instance.currentUser!.sendEmailVerification();
+            ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                content: Text("we just sent you a verification email")
+            ));
             Navigator.of(context).pushReplacementNamed("login");
           } on FirebaseAuthException catch (e) {
             if (e.code == 'weak-password') {
-              print('The password provided is too weak.');
+              ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                  content: Text("password is week")
+              ));
             } else if (e.code == 'email-already-in-use') {
-              print('The account already exists for that email.');
+              ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                  content: Text("account already exists")
+              ));
             }
           } catch (e) {
             print(e);
