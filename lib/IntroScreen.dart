@@ -83,6 +83,7 @@ class IntroScreen extends StatelessWidget {
                   ],
                 )
             ),
+
           ],
           onDone: (){
             Navigator.of(context).pushNamed("login");
@@ -95,7 +96,7 @@ class IntroScreen extends StatelessWidget {
           skip: Text("Skip", style: TextStyle(color: Colors.orangeAccent),),
           next: Icon(Icons.arrow_forward, color: Colors.red,),
           back: Icon(Icons.arrow_back, color: Colors.orange,),
-          done: Text("done"),
+          done: Text("done", style: TextStyle(color: Colors.red),),
           dotsDecorator: DotsDecorator(
               size: Size.square(10.0),
               activeSize: Size(20.0, 10.0),
