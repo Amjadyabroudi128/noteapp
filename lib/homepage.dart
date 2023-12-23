@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pushnotification/Categories/edit.dart';
 import 'package:pushnotification/notes/view.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 
 class _HomePageState extends State<HomePage> {
   List <QueryDocumentSnapshot> data =[];
@@ -60,7 +62,9 @@ class _HomePageState extends State<HomePage> {
               GoogleSignIn googleSignIn = GoogleSignIn();
               googleSignIn.disconnect();
               await FirebaseAuth.instance.signOut();
+
               Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
+              _showMyDialog();
             },
           ),
         ],
@@ -121,6 +125,79 @@ class _HomePageState extends State<HomePage> {
 
 
       ),
+
+    );
+
+  }
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content:  SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Center(
+                        child:
+                        Text("Thank you for using our app", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),)),
+                    SizedBox(height: 20,),
+                    Text("How Was your Experience"),
+                    SizedBox(height: 3,),
+                    Center(
+                      child: RatingBar(
+                        maxRating: 5,
+                        minRating: 1,
+                        initialRating: 1,
+                        allowHalfRating: true,
+                        ratingWidget: RatingWidget(
+                            full: Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            half: Icon(
+                              Icons.star_half,
+                            ),
+                            empty: Icon(
+                              Icons.star,
+                              color: Colors.grey,
+                            ),
+                        ), onRatingUpdate: (rating) {
+                      },
+                        itemSize: 30,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 3),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+
+            TextButton(
+              child: const Text('Later',
+                style: TextStyle(fontSize: 20),
+              ),
+              onPressed: ()  {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+                child: const Text('thanks',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+
+            ),
+          ],
+        );
+      },
     );
   }
 }
+
