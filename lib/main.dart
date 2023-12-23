@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
         "addcategory": (context) => AddCategory(),
         "IntroScreen" : (context) => IntroScreen(),
         "reset" : (context) => PasswordReset(),
+
       },
       // routes for the pages
     );
