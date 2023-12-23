@@ -44,7 +44,7 @@ class _PasswordResetState extends State<PasswordReset> {
                     onPressed: () async {
                         await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text);
                         ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-                            content: Text("check your email")
+                            content: Text("check your email to reset passowrd")
                         ));
                         Navigator.of(context).pushNamed("login");
 
