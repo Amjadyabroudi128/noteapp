@@ -42,7 +42,7 @@ class _LoginState extends State<Login> {
      await FirebaseAuth.instance.signInWithCredential(credential);
     Navigator.of(context).pushNamedAndRemoveUntil("homepage", (route) => false);
     isLoading = true;
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 3));
 
   }
 
@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 35,),
                     CustomLogo(),
                     SizedBox(height: 15,),
-                    Text("Login", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                    Text("Welcome back", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
                     SizedBox(height: 10,),
                     Text("Login to continue using the app", style: TextStyle( color: Colors.grey),),
                     SizedBox(height: 20,),
@@ -163,6 +163,9 @@ class _LoginState extends State<Login> {
                   textColor: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   onPressed: (){
+                    isLoading ? Center(
+                      child: CircularProgressIndicator(),
+                    ) :
                     signInWithGoogle();
                   },
                   child: Row(
