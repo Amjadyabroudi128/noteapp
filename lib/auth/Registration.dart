@@ -21,6 +21,7 @@ class _SignUpState extends State<SignUp> {
   final passwordController = TextEditingController();
   final userController = TextEditingController();
   bool passwordVisible=false;
+  bool _validate = false;
 
   @override
   void initState(){
@@ -55,7 +56,7 @@ class _SignUpState extends State<SignUp> {
                     Text("User",style: TextStyle( fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
                     CustomTextForm(hinttext: "enter your username", myController: userController,
-                      SuffixIcon: Icon(Icons.person),),
+                      SuffixIcon: Icon(Icons.person, color: Colors.black,),),
                     Text("Email", style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 9,),
                     CustomTextForm(hinttext: "enter email",
