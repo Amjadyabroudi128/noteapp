@@ -67,7 +67,7 @@ class _PasswordResetState extends State<PasswordReset> {
                         )
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
           ],
