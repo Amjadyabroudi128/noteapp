@@ -20,6 +20,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List <QueryDocumentSnapshot> data =[];
   bool isLoading = true;
+  User? user = FirebaseAuth.instance.currentUser;
+  bool didVote = false;
   getData() async {
    QuerySnapshot querySnapshot
    = await FirebaseFirestore.instance.collection("categories")
@@ -44,6 +46,7 @@ class _HomePageState extends State<HomePage> {
     );
     // this is to remove the status bar
     return Scaffold(
+
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           Navigator.of(context).pushNamed("addcategory");
@@ -51,7 +54,7 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text("My notes "),
+        title: Text("${user!.email}"),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
@@ -59,12 +62,11 @@ class _HomePageState extends State<HomePage> {
               Icons.logout,
             ),
             onPressed: () async {
+              await _showMyDialog();
               GoogleSignIn googleSignIn = GoogleSignIn();
               googleSignIn.disconnect();
               await FirebaseAuth.instance.signOut();
-
               Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
-              _showMyDialog();
             },
           ),
         ],
@@ -133,7 +135,7 @@ class _HomePageState extends State<HomePage> {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return   AlertDialog(
           content:  SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
