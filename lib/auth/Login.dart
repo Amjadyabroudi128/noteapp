@@ -19,7 +19,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  FirebaseAuth auth = FirebaseAuth.instance;
  bool isLoading = false;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   Future signInWithGoogle() async {
@@ -47,7 +47,6 @@ class _LoginState extends State<Login> {
   }
 
   bool passwordVisible=false;
-
   @override
   void initState(){
     super.initState();
@@ -175,7 +174,7 @@ class _LoginState extends State<Login> {
                       SizedBox(width: 15,),
                       Image.asset("images/google.png", width: 30,),
                     ],
-                  )
+                  ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -189,7 +188,7 @@ class _LoginState extends State<Login> {
                     },
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),
