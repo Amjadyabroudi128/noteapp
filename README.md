@@ -1,6 +1,9 @@
 
 here is the final version of how the app looks like 
 
+![Screenshot 2023-12-25 012702](https://github.com/Amjadyabroudi128/noteapp/assets/61939508/04150d61-fc12-4696-8130-1b257557593f)
+![Screenshot 2023-12-25 012712](https://github.com/Amjadyabroudi128/noteapp/assets/61939508/51f7f1f1-ec99-48ba-8a0e-4976ab975c90)
+
 log in with Google 
 
 ![2f4f2bd7-dc80-4c08-a2bf-37d7db1ba3a6](https://github.com/Amjadyabroudi128/pushNotification-/assets/61939508/eeeafb50-f029-4de2-b129-49be427d7658)
