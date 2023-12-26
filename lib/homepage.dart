@@ -8,8 +8,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pushnotification/Categories/edit.dart';
 import 'package:pushnotification/notes/view.dart';
-
-class HomePage extends StatefulWidget {
+import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart';
+import 'package:path_provider/path_provider.dart';class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -82,6 +83,9 @@ class _HomePageState extends State<HomePage> {
         ),
         itemBuilder: (context, i) {
          return InkWell(
+           onDoubleTap: (){
+             Share.share("${(data)[i]["name"]}", subject: "does it work");
+           },
            onTap: (){
              Navigator.of(context).push(MaterialPageRoute(builder: (context) => noteView(categoryID: data[i].id,
                CategoryName: "${data[i]["name"]}",)));
