@@ -25,9 +25,9 @@ class IntroScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: 60,),
-                  Text("Login  and start taking notes", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                  SelectableText("Login  and start taking notes", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                   SizedBox(height: 40,),
-                  Text("You can sign in with both your email and gmail ")
+                  SelectableText("You can sign in with both your email and gmail ")
                 ],
               )
             ),
