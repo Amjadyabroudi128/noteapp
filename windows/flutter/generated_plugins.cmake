@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
   pasteboard
   rive_common
+  share_plus
   url_launcher_windows
 )
 
