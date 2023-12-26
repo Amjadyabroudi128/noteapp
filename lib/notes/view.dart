@@ -9,7 +9,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pushnotification/Categories/edit.dart';
 import 'package:pushnotification/notes/add.dart';
 import 'package:pushnotification/notes/edit.dart';
-
+import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart';
+import 'package:path_provider/path_provider.dart';
 class noteView extends StatefulWidget {
   final String categoryID;
   final String CategoryName;
@@ -52,7 +54,7 @@ class _noteViewState extends State<noteView> {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text("${widget.CategoryName}"),
+        title: SelectableText("${widget.CategoryName}"),
         actions: [
           IconButton(
             icon: Icon(
@@ -112,6 +114,12 @@ class _noteViewState extends State<noteView> {
                             Navigator.of(context).push
                               (MaterialPageRoute(builder: (context) =>
                                 editNote(categoryDocId: widget.categoryID, noteDocId: data[i].id, value: data[i]["note"],)));
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.share),
+                          onPressed: (){
+                            Share.share("${data[i]["note"]}", subject: "check this out ");
                           },
                         ),
                       ],
