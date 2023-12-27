@@ -25,5 +25,11 @@ Rating bar before siging out
 ![image](https://github.com/Amjadyabroudi128/noteapp/assets/61939508/3f17f3e7-4c1b-45b5-93d7-1bcb24dca667)
 
 i have added a share feature 
+
 ![image](https://github.com/Amjadyabroudi128/noteapp/assets/61939508/6cb749c7-2f88-4c31-8ff8-a3abf0a6dc42)
+
+and here it shows where you can share things 
+
+![image](https://github.com/Amjadyabroudi128/noteapp/assets/61939508/91812313-1466-467c-aad6-851ca718648e)
+
 
